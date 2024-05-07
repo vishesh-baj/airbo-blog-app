@@ -1,13 +1,20 @@
 import dotenv from "dotenv";
 import express, { Express } from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 
+import authRoutes from "./routes/user";
+import postRoutes from "./routes/post";
 dotenv.config();
+cors();
+
 const PORT = process.env.PORT || 8888;
-const DB_URL =
+const DB_URL: string =
   process.env.MONGO_DB_URI || "mongodb://localhost:27017/mydatabase";
 
 const app: Express = express();
+
+app.use(express.json());
 
 // mongodb connection
 mongoose
@@ -23,3 +30,5 @@ mongoose
   );
 
 // app routes
+app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
