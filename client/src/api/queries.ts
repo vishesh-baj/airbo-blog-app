@@ -5,3 +5,6 @@ export const getPosts = async () =>
 
 export const getPostById = async (id: string) =>
   await API_INSTANCE.get(`/post/get-post-by-id/${id}`);
+
+export const getAllUsersPost = async () =>
+  await API_INSTANCE.get("/post/get-all-user-posts");

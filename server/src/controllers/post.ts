@@ -3,11 +3,11 @@ import { PostModel } from "../models/post";
 
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    const { username } = req.user;
-    if (!username) {
+    const { userId } = req.user;
+    if (!userId) {
       return res.status(404).json({ message: "User ID not provided" });
     }
-    const posts = await PostModel.find({ author: username });
+    const posts = await PostModel.find({ author: userId });
     return res
       .status(200)
       .json({ message: "Fetched posts successfully", posts });
@@ -19,10 +19,10 @@ export const getAllPosts = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    const { username } = req.user;
+    const { userId } = req.user;
     console.log(req.user);
     const { title, content } = req.body;
-    const newPost = new PostModel({ title, content, author: username });
+    const newPost = new PostModel({ title, content, author: userId });
     const savedPost = await newPost.save();
     res.status(200).json({ message: "post created successfully", savedPost });
   } catch (error) {

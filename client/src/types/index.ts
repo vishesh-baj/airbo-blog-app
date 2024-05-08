@@ -35,3 +35,9 @@ export type loginFormData = {
   password: string;
 };
 
+export type HeroPostProps = {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+};

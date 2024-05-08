@@ -1,5 +1,6 @@
 import { AiOutlineLogout } from "react-icons/ai";
 import { VscSymbolColor } from "react-icons/vsc";
+import { GoHome } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
 import { PATHS } from "../routes/paths";
 import { THEMES } from "../constants";
@@ -57,6 +58,14 @@ const Navbar = () => {
                 );
               })}
             </ul>
+          </div>
+          <div className="tooltip tooltip-bottom" data-tip="home">
+            <Link
+              to={PATHS.landingPage}
+              className="btn btn-primary btn-sm btn-outline btn-circle"
+            >
+              <GoHome />
+            </Link>
           </div>
           <div className="tooltip tooltip-bottom" data-tip="logout">
             <button
