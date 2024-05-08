@@ -3,4 +3,6 @@ export const PATHS = {
   login: "/login",
   register: "/register",
   postsList: "/posts-list",
+  createPost: "/crete-post",
+  postDetails: "/post-details/:id",
 };

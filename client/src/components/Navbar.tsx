@@ -5,9 +5,11 @@ import { PATHS } from "../routes/paths";
 import { THEMES } from "../constants";
 import { useDispatch } from "react-redux";
 import { changeTheme } from "../redux/theme/themeSlice";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleLogout = () => {
     localStorage.clear();
     navigate(PATHS.login);
@@ -17,6 +19,7 @@ const Navbar = () => {
     console.log(selectedTheme);
     if (selectedTheme !== null) {
       dispatch(changeTheme(selectedTheme));
+      localStorage.setItem("theme", selectedTheme);
     }
   };
 

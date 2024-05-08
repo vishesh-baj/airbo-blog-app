@@ -1,6 +1,13 @@
 import { nanoid } from "nanoid";
 import { PATHS } from "../routes/paths";
-import { LandingPage, LoginPage, PostsList, RegisterPage } from "../pages";
+import {
+  CreatePostPage,
+  LandingPage,
+  LoginPage,
+  PostDetailsPage,
+  PostsList,
+  RegisterPage,
+} from "../pages";
 
 export const PUBLIC_ROUTES = [
   {
@@ -25,6 +32,16 @@ export const PRIVATE_ROUTES = [
     key: nanoid(),
     path: PATHS.postsList,
     Element: PostsList,
+  },
+  {
+    key: nanoid(),
+    path: PATHS.createPost,
+    Element: CreatePostPage,
+  },
+  {
+    key: nanoid(),
+    path: PATHS.postDetails,
+    Element: PostDetailsPage,
   },
 ];
 

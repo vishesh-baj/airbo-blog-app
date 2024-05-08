@@ -8,8 +8,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "./store";
 const App: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);
+  const localTheme = localStorage.getItem("theme");
+
   return (
-    <div data-theme={theme}>
+    <div data-theme={localTheme !== null ? localTheme : theme}>
       <Toaster position="bottom-right" reverseOrder={false} />
       <Routes>
         <Route element={<AuthRoutes />}>
