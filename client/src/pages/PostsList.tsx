@@ -21,7 +21,6 @@ const PostsList = () => {
   const { data, status } = useQuery({
     queryKey: ["posts"],
     queryFn: getPosts,
-    staleTime: 10000,
   });
 
   if (status === "pending") {
