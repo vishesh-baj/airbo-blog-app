@@ -52,7 +52,7 @@ const CreatePostPage = () => {
             type="text"
             name="title"
             id="title"
-            placeholder="name"
+            placeholder="Title"
             className="input input-bordered"
           />
           <p className="text-rose-500 mt-2 ml-1">{errors.title?.message}</p>
@@ -65,6 +65,7 @@ const CreatePostPage = () => {
             {...register("content")}
             rows={10}
             className="textarea textarea-bordered"
+            placeholder="Content"
             name="content"
             id="content"
           />

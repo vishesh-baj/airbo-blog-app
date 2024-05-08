@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { PATHS } from "../routes/paths";
 import { deletePost } from "../redux/posts/postSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+
 type PostData = {
   _id: string;
   title: string;
@@ -21,18 +23,26 @@ type PostData = {
   __v: number;
 };
 
+type EditedPostData = {
+  title: string;
+  content: string;
+};
+
 const PostDetailsPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const postId = params.id;
 
-  const { data, status } = useQuery({
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedContent, setEditedContent] = useState("");
+
+  const { data, status, refetch } = useQuery({
     queryKey: ["get-post-by-id", postId],
     queryFn: () => getPostById(postId),
   });
 
-  const deleteMutation = useMutation({
+  const deletePostMutation = useMutation({
     mutationKey: ["delete-post"],
     mutationFn: (postId: string) =>
       API_INSTANCE.delete(`/post/delete-post/${postId}`),
@@ -42,10 +52,35 @@ const PostDetailsPage = () => {
     },
   });
 
+  const updatePostMutation = useMutation({
+    mutationKey: ["update-post"],
+    mutationFn: (editedPostObject: EditedPostData) =>
+      API_INSTANCE.put(`/post/update-post/${postId}`, editedPostObject),
+    onSuccess: () => {
+      toast.success("Post updated successfully");
+      refetch();
+      const modal = document.getElementById("edit_modal");
+      if (modal) {
+        modal.close();
+      } else {
+        console.error("Modal element not found!");
+      }
+    },
+  });
+
   const handleDeletePost = () => {
-    deleteMutation.mutate(postId);
+    deletePostMutation.mutate(postId);
     dispatch(deletePost(postId));
-    document.getElementById("my_modal_1").closeModal();
+  };
+
+  const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const editedPayloadObject = {
+      title: editedTitle,
+      content: editedContent,
+    };
+    console.log(editedPayloadObject);
+    updatePostMutation.mutate(editedPayloadObject);
   };
 
   if (status === "pending") {
@@ -62,7 +97,7 @@ const PostDetailsPage = () => {
             <div className="flex gap-4">
               <button
                 onClick={() => {
-                  const modal = document.getElementById("my_modal_1");
+                  const modal = document.getElementById("delete-modal");
                   if (modal) {
                     modal.showModal();
                   } else {
@@ -73,7 +108,12 @@ const PostDetailsPage = () => {
               >
                 <AiOutlineDelete />
               </button>
-              <button className="btn btn-accent btn-outline ">
+              <button
+                onClick={() =>
+                  document.getElementById("edit_modal").showModal()
+                }
+                className="btn btn-accent btn-outline"
+              >
                 <FiEdit2 />
               </button>
             </div>
@@ -99,7 +139,9 @@ const PostDetailsPage = () => {
             </div>
           </div>
         </div>
-        <dialog id="my_modal_1" className="modal">
+
+        {/* delete modal */}
+        <dialog id="delete-modal" className="modal">
           <div className="modal-box">
             <h3 className="font-bold text-lg text-primary">Warning!</h3>
             <p className="py-4">Are you sure you want to delete this post?</p>
@@ -108,9 +150,48 @@ const PostDetailsPage = () => {
                 <button onClick={handleDeletePost} className="btn btn-error">
                   Delete
                 </button>
-                <button className="btn btn-primary">Close</button>
+                <form method="dialog">
+                  <button className="btn btn-primary">Close</button>
+                </form>
               </div>
             </div>
+          </div>
+        </dialog>
+
+        {/* edit modal */}
+        <dialog id="edit_modal" className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Edit Post</h3>
+            <form onSubmit={handleEditSubmit}>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Edit Title</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered"
+                  defaultValue={fetchedPost.title}
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Edit Content</span>
+                </label>
+                <textarea
+                  rows={10}
+                  className="textarea textarea-bordered"
+                  defaultValue={fetchedPost.content}
+                  onChange={(e) => setEditedContent(e.target.value)}
+                />
+              </div>
+              <div className="modal-action">
+                <button className="btn btn-accent">Update Post</button>
+                <form method="dialog">
+                  <button className="btn btn-primary">Close</button>
+                </form>
+              </div>
+            </form>
           </div>
         </dialog>
       </>
