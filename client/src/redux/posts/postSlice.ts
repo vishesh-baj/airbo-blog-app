@@ -34,9 +34,22 @@ export const postSlice = createSlice({
         state.splice(index, 1);
       }
     },
+
+    updatePost: (
+      state,
+      action: PayloadAction<{ id: string; updatedPost: Partial<PostState> }>
+    ) => {
+      const { id, updatedPost } = action.payload;
+      const postToUpdate = state.find((post) => post._id === id);
+      if (postToUpdate) {
+        Object.assign(postToUpdate, updatedPost);
+        postToUpdate.updatedAt = new Date();
+      }
+    },
   },
 });
 
-export const { fetchPosts, addPost, deletePost } = postSlice.actions;
+export const { fetchPosts, addPost, deletePost, updatePost } =
+  postSlice.actions;
 
 export default postSlice.reducer;

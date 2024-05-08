@@ -24,12 +24,12 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-300  rounded-full shadow-2xl shadow-base-200">
-      <div className="flex justify-between w-full px-4">
-        <Link to={PATHS.postsList} className="btn btn-ghost text-xl ">
+    <div className="navbar bg-base-300  rounded-xl shadow-2xl shadow-base-200">
+      <div className="flex justify-between w-full ">
+        <Link to={PATHS.postsList} className="btn btn-ghost text-xl">
           <span className="text-primary">Airbow</span> Blogs
         </Link>
-        <div className="flex justify-between items-center  gap-4">
+        <div className="flex justify-between items-center  gap-4 pr-2">
           <div className="dropdown dropdown-hover dropdown-left  ">
             <div
               tabIndex={0}

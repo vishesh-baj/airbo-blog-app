@@ -8,7 +8,7 @@ import { Loader } from "../components";
 import API_INSTANCE from "../api";
 import toast from "react-hot-toast";
 import { PATHS } from "../routes/paths";
-import { deletePost } from "../redux/posts/postSlice";
+import { deletePost, updatePost } from "../redux/posts/postSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
@@ -72,15 +72,14 @@ const PostDetailsPage = () => {
     deletePostMutation.mutate(postId);
     dispatch(deletePost(postId));
   };
-
   const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const editedPayloadObject = {
       title: editedTitle,
       content: editedContent,
     };
-    console.log(editedPayloadObject);
     updatePostMutation.mutate(editedPayloadObject);
+    dispatch(updatePost({ id: postId, updatedPost: editedPayloadObject }));
   };
 
   if (status === "pending") {
