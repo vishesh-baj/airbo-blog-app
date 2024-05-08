@@ -1,6 +1,6 @@
 # React and Node.js Application
 
-This is a sample application built with React for the frontend and Node.js for the backend.
+This is a sample blog application built with React for the frontend and Node.js for the backend.
 
 ## Prerequisites
 
