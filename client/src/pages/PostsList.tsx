@@ -1,27 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { getPosts } from "../api/queries";
 import { Loader, PostCard } from "../components";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
 import { fetchPosts } from "../redux/posts/postSlice";
 import { Link } from "react-router-dom";
 import { PATHS } from "../routes/paths";
-type PostData = {
-  _id: string;
-  title: string;
-  content: string;
-  author: string;
-  likes: string[];
-  createdAt: Date;
-  updatedAt: Date;
-  __v: number;
-};
+import usePostList from "../hooks/usePostList";
+import { PostData } from "../types";
 const PostsList = () => {
-  const dispatch = useDispatch();
-  const { data, status } = useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
-  });
+  const { data, dispatch, status } = usePostList();
 
   if (status === "pending") {
     return (
