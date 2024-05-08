@@ -5,4 +5,5 @@ export const PATHS = {
   postsList: "/posts-list",
   createPost: "/crete-post",
   postDetails: "/post-details/:id",
+  pageNotFound: "/page-not-found",
 };

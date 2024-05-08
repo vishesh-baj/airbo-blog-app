@@ -25,7 +25,7 @@ const PostsList = () => {
   return (
     <div className="bg-base-200 rounded-xl p-4 mt-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl">User's Posts</h1>
+        <h1 className="text-2xl">Your Posts</h1>
         <Link to={PATHS.createPost} className="btn btn-primary">
           create posts
         </Link>

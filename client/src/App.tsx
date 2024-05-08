@@ -6,6 +6,8 @@ import { PrivateRoutes, AuthRoutes } from "./routes/ProtectedRoutes";
 import AppLayout from "./layouts/AppLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
+import { PATHS } from "./routes/paths";
+import { LandingPage, PageNotFound } from "./pages";
 const App: React.FC = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const localTheme = localStorage.getItem("theme");
@@ -34,6 +36,10 @@ const App: React.FC = () => {
             );
           })}
         </Route>
+        {/* landing page */}
+        <Route path={PATHS.landingPage} element={<LandingPage />} />
+        {/* page not found */}
+        <Route path={"*"} element={<PageNotFound />} />
       </Routes>
     </div>
   );

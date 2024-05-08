@@ -2,7 +2,6 @@ import { nanoid } from "nanoid";
 import { PATHS } from "../routes/paths";
 import {
   CreatePostPage,
-  LandingPage,
   LoginPage,
   PostDetailsPage,
   PostsList,
@@ -10,11 +9,6 @@ import {
 } from "../pages";
 
 export const PUBLIC_ROUTES = [
-  {
-    key: nanoid(),
-    path: PATHS.landingPage,
-    Element: LandingPage,
-  },
   {
     key: nanoid(),
     path: PATHS.login,
