@@ -8,7 +8,8 @@ import { Loader } from "../components";
 import API_INSTANCE from "../api";
 import toast from "react-hot-toast";
 import { PATHS } from "../routes/paths";
-
+import { deletePost } from "../redux/posts/postSlice";
+import { useDispatch } from "react-redux";
 type PostData = {
   _id: string;
   title: string;
@@ -23,6 +24,7 @@ type PostData = {
 const PostDetailsPage = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const postId = params.id;
 
   const { data, status } = useQuery({
@@ -42,7 +44,8 @@ const PostDetailsPage = () => {
 
   const handleDeletePost = () => {
     deleteMutation.mutate(postId);
-    document.getElementById("my_modal_1")?.close();
+    dispatch(deletePost(postId));
+    document.getElementById("my_modal_1").closeModal();
   };
 
   if (status === "pending") {

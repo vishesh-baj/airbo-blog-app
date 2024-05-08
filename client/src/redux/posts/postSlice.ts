@@ -26,9 +26,17 @@ export const postSlice = createSlice({
     addPost: (state, action: PayloadAction<PostState>) => {
       state.push(action.payload);
     },
+
+    deletePost: (state, action: PayloadAction<string>) => {
+      const postIdToDelete = action.payload;
+      const index = state.findIndex((post) => post._id === postIdToDelete);
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
+    },
   },
 });
 
-export const { fetchPosts, addPost } = postSlice.actions;
+export const { fetchPosts, addPost, deletePost } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -24,11 +24,15 @@ const PostsList = () => {
   });
 
   if (status === "pending") {
-    return <Loader />;
+    return (
+      <div className="flex justify-center my-4">
+        <Loader />
+      </div>
+    );
   }
 
   if (status === "error") {
-    toast.error("unexpected error occured");
+    toast.error("No posts found");
   }
   if (status === "success") {
     dispatch(fetchPosts(data?.data.posts));
