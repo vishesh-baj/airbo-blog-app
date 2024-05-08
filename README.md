@@ -14,6 +14,12 @@ This is a sample application built with React for the frontend and Node.js for t
 3. copy .env file to server directory
 4. type npm run dev to start client and server respectively
 
+NOTE - Make sure you create .env file in server directory and copy the env variables I've provided you on mail. Without .en, application wont run.
+
+
+NOTE - In case you are getting errors while installing node modules, try to delete package-lock.json and retry. In most cases it will work by resetting package versions as per your system configuration.
+
+
 ## Tech Stack 
 1. React (v18)
 2. Typescript (v5.2)
@@ -56,6 +62,6 @@ before its saved to database, So you dont have to worry about security either.
 
 3. Adding protected routes is one of the main highlights as far as security is concerned in our application. I've added protection in both BE and FE. 
 
-
+4. Whole application is mobile responsive, hence it can be used both on mobile and pc for better user experience. 
 
 
