@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATHS } from "../routes/paths";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../validations";
+import { useMutation } from "@tanstack/react-query";
+import API_INSTANCE from "../api";
 
 type loginFormData = {
   email: string;
@@ -10,13 +12,24 @@ type loginFormData = {
 };
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<loginFormData>({ resolver: yupResolver(loginSchema) });
 
-  const onSubmit = (data: loginFormData) => console.log(data);
+  const loginMutation = useMutation({
+    mutationFn: (data: loginFormData) => API_INSTANCE.post("/auth/login", data),
+    onSuccess: (data) => {
+      localStorage.setItem("token", data.data?.token);
+      navigate(PATHS.postsList);
+    },
+  });
+
+  const onSubmit = (data: loginFormData) => {
+    loginMutation.mutate(data);
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">

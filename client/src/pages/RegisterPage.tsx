@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATHS } from "../routes/paths";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import API_INSTANCE from "../api";
+import toast from "react-hot-toast";
+
 type RegisterFormData = {
   username: string;
   email: string;
@@ -19,7 +21,9 @@ type RegisterApiData = {
 };
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -30,6 +34,8 @@ const RegisterPage = () => {
       API_INSTANCE.post("/auth/register", data),
     onSuccess: (data) => {
       console.log(data);
+      toast.success(data.data?.message);
+      navigate(PATHS.login);
     },
   });
 
@@ -40,6 +46,7 @@ const RegisterPage = () => {
       password: data.confirmPassword,
     };
     registerMutation.mutate(registerPayload);
+    reset();
   };
 
   return (
