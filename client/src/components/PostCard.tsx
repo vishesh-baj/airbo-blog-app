@@ -14,7 +14,7 @@ const PostCard = (props: Props) => {
     >
       <div className="card-body">
         <div>
-          <h1 className="text-2xl text-base-content">
+          <h1 className="text-2xl  text-secondary">
             {props.title.toUpperCase()}
           </h1>
         </div>
