@@ -22,9 +22,13 @@ export const postSlice = createSlice({
       state.length = 0;
       state.push(...action.payload);
     },
+
+    addPost: (state, action: PayloadAction<PostState>) => {
+      state.push(action.payload);
+    },
   },
 });
 
-export const { fetchPosts } = postSlice.actions;
+export const { fetchPosts, addPost } = postSlice.actions;
 
 export default postSlice.reducer;

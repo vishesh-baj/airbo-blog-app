@@ -4,14 +4,19 @@ import { postSchema } from "../validations";
 import { useMutation } from "@tanstack/react-query";
 import API_INSTANCE from "../api";
 import toast from "react-hot-toast";
-
+import { useDispatch } from "react-redux";
+import { addPost } from "../redux/posts/postSlice";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../routes/paths";
 const CreatePostPage = () => {
   type createPostFormData = {
     title: string;
     content: string;
   };
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -21,11 +26,16 @@ const CreatePostPage = () => {
     mutationKey: ["create-post"],
     mutationFn: (data: createPostFormData) =>
       API_INSTANCE.post("/post/create-post", data),
-    onSuccess: (data) => toast.success(data.data.message),
+    onSuccess: (data) => {
+      dispatch(addPost(data?.data?.savedPost));
+      toast.success(data?.data?.message);
+      navigate(PATHS.postsList);
+    },
   });
 
   const onSubmit = (data: createPostFormData) => {
     postMutation.mutate(data);
+    reset();
   };
 
   return (

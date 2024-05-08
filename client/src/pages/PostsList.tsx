@@ -21,7 +21,7 @@ const PostsList = () => {
   const { data, status } = useQuery({
     queryKey: ["posts"],
     queryFn: getPosts,
-    staleTime: Infinity,
+    staleTime: 10000,
   });
 
   if (status === "pending") {
@@ -46,7 +46,12 @@ const PostsList = () => {
       <div className="mt-4">
         {data?.data.posts.map((post: PostData) => {
           return (
-            <PostCard id={post._id} title={post.title} content={post.content} />
+            <PostCard
+              key={post._id}
+              id={post._id}
+              title={post.title}
+              content={post.content}
+            />
           );
         })}
       </div>
