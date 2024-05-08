@@ -1,6 +1,6 @@
 import { AiOutlineLogout } from "react-icons/ai";
 import { VscSymbolColor } from "react-icons/vsc";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATHS } from "../routes/paths";
 import { THEMES } from "../constants";
 import { useDispatch } from "react-redux";
@@ -26,9 +26,9 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-300  rounded-full shadow-2xl shadow-base-200">
       <div className="flex justify-between w-full px-4">
-        <button className="btn btn-ghost text-xl ">
+        <Link to={PATHS.postsList} className="btn btn-ghost text-xl ">
           <span className="text-primary">Airbow</span> Blogs
-        </button>
+        </Link>
         <div className="flex justify-between items-center  gap-4">
           <div className="dropdown dropdown-hover dropdown-left  ">
             <div

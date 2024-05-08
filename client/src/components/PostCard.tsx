@@ -10,7 +10,7 @@ const PostCard = (props: Props) => {
   return (
     <Link
       to={`/post-details/${props.id}`}
-      className="card bg-base-300 cursor-pointer hover:scale-[101%] transition ease-in-out duration-100"
+      className="card mt-4 bg-base-300 cursor-pointer hover:scale-[101%] hover:bg-base-100 transition ease-in-out duration-100"
     >
       <div className="card-body">
         <h1 className="text-2xl text-base-content">

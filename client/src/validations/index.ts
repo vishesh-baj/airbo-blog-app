@@ -17,3 +17,11 @@ export const registerSchema = yup.object({
     .oneOf([yup.ref("password")], "Passwords must match")
     .required("Please confirm your password"),
 });
+
+export const postSchema = yup.object({
+  title: yup.string().required("title is required"),
+  content: yup
+    .string()
+    .required("content is required")
+    .min(50, "Minimun of 50 characters are required to create a post"),
+});
