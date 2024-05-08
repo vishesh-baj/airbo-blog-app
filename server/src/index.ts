@@ -6,7 +6,6 @@ import cors from "cors";
 import authRoutes from "./routes/user";
 import postRoutes from "./routes/post";
 dotenv.config();
-cors();
 
 const PORT = process.env.PORT || 8888;
 const DB_URL: string =
@@ -15,7 +14,7 @@ const DB_URL: string =
 const app: Express = express();
 
 app.use(express.json());
-
+app.use(cors({ origin: true }));
 // mongodb connection
 mongoose
   .connect(DB_URL)

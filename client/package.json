@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@tanstack/react-query": "^5.35.1",
+    "axios": "^1.6.8",
     "daisyui": "^4.10.5",
     "framer-motion": "^11.1.9",
     "nanoid": "^5.0.7",

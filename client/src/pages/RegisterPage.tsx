@@ -3,12 +3,19 @@ import { PATHS } from "../routes/paths";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../validations";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-type registerFormData = {
+import { useMutation } from "@tanstack/react-query";
+import API_INSTANCE from "../api";
+type RegisterFormData = {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
+};
+
+type RegisterApiData = {
+  username: string;
+  email: string;
+  password: string;
 };
 
 const RegisterPage = () => {
@@ -16,9 +23,24 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<registerFormData>({ resolver: yupResolver(registerSchema) });
+  } = useForm<RegisterFormData>({ resolver: yupResolver(registerSchema) });
 
-  const onSubmit = (data: registerFormData) => console.log(data);
+  const registerMutation = useMutation({
+    mutationFn: (data: RegisterApiData) =>
+      API_INSTANCE.post("/auth/register", data),
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
+  const onSubmit = (data: RegisterFormData) => {
+    const registerPayload = {
+      username: data.username,
+      email: data.email,
+      password: data.confirmPassword,
+    };
+    registerMutation.mutate(registerPayload);
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -32,7 +54,7 @@ const RegisterPage = () => {
             nisi.
           </p>
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card  shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
