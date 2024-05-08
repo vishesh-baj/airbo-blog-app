@@ -12,8 +12,9 @@ const PostSchema: Schema<PostDocument> = new Schema(
       required: true,
     },
     author: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
+      type: String,
+      required: true,
+      unique: true,
     },
 
     likes: [

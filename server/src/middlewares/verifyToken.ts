@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-// Define user property on Request type
 declare global {
   namespace Express {
     interface Request {
@@ -10,7 +9,6 @@ declare global {
   }
 }
 
-// Middleware function to verify JWT token
 export const verifyToken = (
   req: Request,
   res: Response,
@@ -21,7 +19,6 @@ export const verifyToken = (
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
   }
-  // Ensure JWT secret is defined
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT secret is not defined");
   }
@@ -31,7 +28,8 @@ export const verifyToken = (
     if (err) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    req.user = decoded; // Attach user object to request
+    console.log("DECODED: ", decoded);
+    req.user = decoded;
     next();
   });
 };

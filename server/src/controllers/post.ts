@@ -3,11 +3,11 @@ import { PostModel } from "../models/post";
 
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.user;
-    if (!userId) {
+    const { username } = req.user;
+    if (!username) {
       return res.status(404).json({ message: "User ID not provided" });
     }
-    const posts = await PostModel.find({ author: userId });
+    const posts = await PostModel.find({ author: username });
     return res
       .status(200)
       .json({ message: "Fetched posts successfully", posts });
@@ -19,9 +19,10 @@ export const getAllPosts = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.user;
+    const { username } = req.user;
+    console.log(req.user);
     const { title, content } = req.body;
-    const newPost = new PostModel({ title, content, author: userId });
+    const newPost = new PostModel({ title, content, author: username });
     const savedPost = await newPost.save();
     res.status(200).json({ message: "post created successfully", savedPost });
   } catch (error) {
@@ -71,6 +72,21 @@ export const getPostById = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Fetched post", post: searchedPost });
   } catch (error) {
     console.error("Error in getPostById:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getAllUserPosts = async (req: Request, res: Response) => {
+  try {
+    const allUserPosts = await PostModel.find();
+    if (!allUserPosts) {
+      res.status(404).json({ message: "Unable to fetch all posts" });
+    }
+    res
+      .status(200)
+      .json({ message: "Posts fetched successfully", posts: allUserPosts });
+  } catch (error) {
+    console.error("Error in getAllUserPosts:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };

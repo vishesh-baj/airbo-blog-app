@@ -144,10 +144,10 @@ export const THEMES = [
   //   key: nanoid(),
   //   name: "lemonade",
   // },
-  // {
-  //   key: nanoid(),
-  //   name: "night",
-  // },
+  {
+    key: nanoid(),
+    name: "night",
+  },
   // {
   //   key: nanoid(),
   //   name: "coffee",
