@@ -10,16 +10,13 @@ export const register = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   try {
-    // Check if the user already exists
     let user = await UserModel.findOne({ email });
     if (user) {
       return res.json({ message: "User already exists" });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
     user = new UserModel({
       username,
       email,
@@ -41,24 +38,20 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    // Check if the user exists
     const user: UserDocument | null = await UserModel.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Ensure JWT secret is defined
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT secret is not defined");
     }
 
-    // Generate JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });

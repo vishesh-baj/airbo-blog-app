@@ -46,14 +46,14 @@ export const PRIVATE_ROUTES = [
 ];
 
 export const THEMES = [
-  // {
-  //   key: nanoid(),
-  //   name: "light",
-  // },
-  // {
-  //   key: nanoid(),
-  //   name: "dark",
-  // },
+  {
+    key: nanoid(),
+    name: "light",
+  },
+  {
+    key: nanoid(),
+    name: "dark",
+  },
   // {
   //   key: nanoid(),
   //   name: "cupcake",
@@ -66,34 +66,34 @@ export const THEMES = [
   //   key: nanoid(),
   //   name: "emerald",
   // },
-  {
-    key: nanoid(),
-    name: "corporate",
-  },
+  // {
+  //   key: nanoid(),
+  //   name: "corporate",
+  // },
   {
     key: nanoid(),
     name: "synthwave",
   },
-  {
-    key: nanoid(),
-    name: "retro",
-  },
+  // {
+  //   key: nanoid(),
+  //   name: "retro",
+  // },
   {
     key: nanoid(),
     name: "cyberpunk",
   },
-  {
-    key: nanoid(),
-    name: "valentine",
-  },
-  {
-    key: nanoid(),
-    name: "halloween",
-  },
-  {
-    key: nanoid(),
-    name: "garden",
-  },
+  // {
+  //   key: nanoid(),
+  //   name: "valentine",
+  // },
+  // {
+  //   key: nanoid(),
+  //   name: "halloween",
+  // },
+  // {
+  //   key: nanoid(),
+  //   name: "garden",
+  // },
   {
     key: nanoid(),
     name: "forest",
@@ -122,14 +122,14 @@ export const THEMES = [
     key: nanoid(),
     name: "black",
   },
-  // {
-  //   key: nanoid(),
-  //   name: "luxury",
-  // },
-  // {
-  //   key: nanoid(),
-  //   name: "dracula",
-  // },
+  {
+    key: nanoid(),
+    name: "luxury",
+  },
+  {
+    key: nanoid(),
+    name: "dracula",
+  },
   // {
   //   key: nanoid(),
   //   name: "cmyk",
@@ -166,10 +166,10 @@ export const THEMES = [
   //   key: nanoid(),
   //   name: "dim",
   // },
-  // {
-  //   key: nanoid(),
-  //   name: "nord",
-  // },
+  {
+    key: nanoid(),
+    name: "nord",
+  },
   // {
   //   key: nanoid(),
   //   name: "sunset",
