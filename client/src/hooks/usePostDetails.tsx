@@ -1,6 +1,5 @@
 import API_INSTANCE from "../api";
 import toast from "react-hot-toast";
-import { PATHS } from "../routes/paths";
 import { deletePost, updatePost } from "../redux/posts/postSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -9,6 +8,7 @@ import { getPostById } from "../api/queries";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { convertDateToString } from "../utils";
 import { EditedPostData } from "../types";
+import { PATHS } from "../routes/paths";
 
 const usePostDetails = () => {
   const params = useParams();

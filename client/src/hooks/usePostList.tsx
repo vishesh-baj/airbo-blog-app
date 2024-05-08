@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 
 const usePostList = () => {
   const dispatch = useDispatch();
-  const { data, status } = useQuery({
+  const { data, status, refetch } = useQuery({
     queryKey: ["posts"],
     queryFn: getPosts,
   });
-  return { dispatch, data, status };
+  return { dispatch, data, status, refetch };
 };
 
 export default usePostList;

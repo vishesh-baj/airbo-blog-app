@@ -8,16 +8,15 @@ import { PostData } from "../types";
 const PostsList = () => {
   const { data, dispatch, status } = usePostList();
 
+  if (status === "error") {
+    toast.error("No posts found");
+  }
   if (status === "pending") {
     return (
       <div className="flex justify-center my-4">
         <Loader />
       </div>
     );
-  }
-
-  if (status === "error") {
-    toast.error("No posts found");
   }
   if (status === "success") {
     dispatch(fetchPosts(data?.data.posts));
@@ -32,16 +31,20 @@ const PostsList = () => {
         </Link>
       </div>
       <div className="mt-4">
-        {data?.data.posts.map((post: PostData) => {
-          return (
-            <PostCard
-              key={post._id}
-              id={post._id}
-              title={post.title}
-              content={post.content}
-            />
-          );
-        })}
+        {data?.data.posts.length > 0 ? (
+          data?.data.posts.map((post: PostData) => {
+            return (
+              <PostCard
+                key={post._id}
+                id={post._id}
+                title={post.title}
+                content={post.content}
+              />
+            );
+          })
+        ) : (
+          <p className="text-center ">No Posts Found</p>
+        )}
       </div>
     </div>
   );

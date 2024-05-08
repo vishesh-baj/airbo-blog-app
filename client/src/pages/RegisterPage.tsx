@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { PATHS } from "../routes/paths";
 import useRegister from "../hooks/useRegister";
+
 const RegisterPage = () => {
   const { errors, handleSubmit, onSubmit, register } = useRegister();
   return (

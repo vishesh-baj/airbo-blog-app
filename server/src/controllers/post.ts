@@ -8,9 +8,6 @@ export const getAllPosts = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User ID not provided" });
     }
     const posts = await PostModel.find({ author: userId });
-    if (!posts || posts.length === 0) {
-      return res.status(404).json({ message: "No posts found for this user" });
-    }
     return res
       .status(200)
       .json({ message: "Fetched posts successfully", posts });
